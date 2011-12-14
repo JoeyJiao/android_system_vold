@@ -1173,6 +1173,9 @@ int VolumeManager::shareVolume(const char *label, const char *method) {
     }
 #endif
 
+	system("echo udisk>/sys/devices/platform/msm_hsusb/gadget/switchusb");
+	system("sleep 3");
+
     int fd, lun_number;
     char nodepath[255];
     snprintf(nodepath,
@@ -1258,6 +1261,9 @@ int VolumeManager::unshareVolume(const char *label, const char *method) {
     }
 
     close(fd);
+
+	system("echo cdrom>/sys/devices/platform/msm_hsusb/gadget/switchusb");
+
     v->handleVolumeUnshared();
     if (--mUmsSharingCount == 0 && mSavedDirtyRatio != -1) {
         FILE* fp;
